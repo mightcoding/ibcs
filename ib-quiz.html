@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>kuvanbakiyev — IB CS Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1a1a1d;
+    --bg-soft: #25252a;
+    --card-dark: #2a2a30;
+    --card-light: #ddd6fe;
+    --card-light-2: #e9e5fe;
+    --purple: #8b7ff6;
+    --purple-deep: #7b6cf6;
+    --purple-soft: #a99ff8;
+    --text: #ffffff;
+    --text-dim: #a8a8ad;
+    --text-on-light: #1a1a1d;
+    --black: #000000;
+    --white: #ffffff;
+    --green: #5fd49a;
+    --green-bg: #1f3d2f;
+    --red: #f17878;
+    --red-bg: #3d1f23;
+    --radius-lg: 28px;
+    --radius-md: 20px;
+    --radius-sm: 14px;
+    --radius-pill: 999px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    padding: 28px 20px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ========== HEADER ========== */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .brand-dot {
+    width: 36px; height: 36px;
+    background: var(--purple);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-size: 18px;
+  }
+  .topbar .meta {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  /* ========== HERO ========== */
+  .hero {
+    background: var(--card-light);
+    color: var(--text-on-light);
+    border-radius: var(--radius-lg);
+    padding: 44px 36px 36px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5.5vw, 54px);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    max-width: 720px;
+  }
+  .hero p {
+    margin-top: 16px;
+    color: #423a72;
+    font-size: 16px;
+    max-width: 540px;
+    line-height: 1.5;
+  }
+  .hero .deco {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.95;
+  }
+  .deco svg { width: 280px; height: 280px; }
+  @media (max-width: 720px) {
+    .hero { padding: 32px 24px; }
+    .hero .deco { display: none; }
+  }
+
+  /* ========== SECTION TITLES ========== */
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 32px 4px 16px;
+  }
+  .section-title h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .section-title .hint {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* ========== TOPIC GRID ========== */
+  .topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+  }
+  .topic-card {
+    background: var(--card-light);
+    color: var(--text-on-light);
+    border-radius: var(--radius-md);
+    padding: 22px 22px 24px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    border: 3px solid transparent;
+    user-select: none;
+    overflow: hidden;
+  }
+  .topic-card:hover { transform: translateY(-3px); }
+  .topic-card.selected {
+    border-color: var(--purple-deep);
+    box-shadow: 0 10px 30px -10px rgba(123, 108, 246, 0.6);
+  }
+  .topic-card .check {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.08);
+    display: grid;
+    place-items: center;
+    transition: background 0.18s, color 0.18s;
+    color: transparent;
+    font-weight: 800;
+  }
+  .topic-card.selected .check {
+    background: var(--purple-deep);
+    color: white;
+  }
+  .topic-card h3 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .topic-card .badge {
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(0,0,0,0.08);
+    padding: 3px 8px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .topic-card p {
+    font-size: 14px;
+    color: #4a4570;
+    margin-bottom: 18px;
+    line-height: 1.45;
+  }
+  .topic-card .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    border: 1.5px solid rgba(0,0,0,0.18);
+    padding: 4px 10px;
+    border-radius: 999px;
+    color: #1a1a1d;
+  }
+
+  /* dark variant for some cards */
+  .topic-card.dark {
+    background: var(--card-dark);
+    color: var(--text);
+  }
+  .topic-card.dark p { color: var(--text-dim); }
+  .topic-card.dark .badge { background: rgba(255,255,255,0.1); color: var(--text); }
+  .topic-card.dark .tag { color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .topic-card.dark .check { background: rgba(255,255,255,0.1); }
+  .topic-card.dark.selected .check { background: var(--purple); }
+
+  /* purple variant */
+  .topic-card.purple {
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple-soft));
+    color: white;
+  }
+  .topic-card.purple p { color: rgba(255,255,255,0.85); }
+  .topic-card.purple .badge { background: rgba(255,255,255,0.2); color: white; }
+  .topic-card.purple .tag { color: white; border-color: rgba(255,255,255,0.4); }
+  .topic-card.purple .check { background: rgba(255,255,255,0.2); }
+  .topic-card.purple.selected { border-color: white; }
+  .topic-card.purple.selected .check { background: white; color: var(--purple-deep); }
+
+  /* ========== ACTION BAR ========== */
+  .action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .selected-count {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .selected-count strong { color: var(--text); }
+
+  .btn {
+    border: 0;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    padding: 16px 32px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s, opacity 0.15s, background 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-primary { background: var(--white); color: var(--black); }
+  .btn-primary:hover:not(:disabled) { background: #ececec; }
+  .btn-dark { background: var(--black); color: var(--white); }
+  .btn-dark:hover:not(:disabled) { background: #2a2a30; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1.5px solid rgba(255,255,255,0.2); }
+  .btn-link { background: transparent; color: var(--text); padding: 16px 8px; text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ========== QUIZ SCREEN ========== */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .progress-bar {
+    height: 8px;
+    background: var(--card-dark);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--purple);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .quiz-meta .topic-pill {
+    background: var(--card-dark);
+    color: var(--text);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .question-card {
+    background: var(--card-light);
+    color: var(--text-on-light);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    margin-bottom: 16px;
+  }
+  .question-card .qnum {
+    font-size: 13px;
+    color: #6b6398;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+  .question-card h2 {
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+
+  .options {
+    display: grid;
+    gap: 12px;
+  }
+  .option {
+    background: var(--card-dark);
+    color: var(--text);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    text-align: left;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    line-height: 1.4;
+  }
+  .option:hover:not(:disabled) {
+    background: #34343a;
+    border-color: rgba(139, 127, 246, 0.4);
+  }
+  .option .letter {
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: background 0.15s, color 0.15s;
+  }
+  .option:hover:not(:disabled) .letter {
+    background: var(--purple);
+    color: white;
+  }
+  .option.correct {
+    background: var(--green-bg);
+    border-color: var(--green);
+    color: #d6f5e3;
+  }
+  .option.correct .letter { background: var(--green); color: #0e2419; }
+  .option.wrong {
+    background: var(--red-bg);
+    border-color: var(--red);
+    color: #fcdcdc;
+  }
+  .option.wrong .letter { background: var(--red); color: #2a0e10; }
+  .option:disabled { cursor: default; }
+  .option .icon { margin-left: auto; font-weight: 800; }
+
+  .feedback {
+    margin-top: 16px;
+    padding: 22px 24px;
+    border-radius: var(--radius-md);
+    background: var(--card-dark);
+    border-left: 4px solid var(--purple);
+    display: none;
+    animation: slideIn 0.25s ease;
+  }
+  .feedback.show { display: block; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .feedback.right { border-color: var(--green); }
+  .feedback.wrong { border-color: var(--red); }
+  .feedback .label {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    color: var(--purple);
+  }
+  .feedback.right .label { color: var(--green); }
+  .feedback.wrong .label { color: var(--red); }
+  .feedback .definition {
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .feedback .definition strong { color: var(--purple-soft); }
+
+  .quiz-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .score-pill {
+    background: var(--card-dark);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .score-pill .num { color: var(--purple-soft); }
+
+  /* ========== RESULTS ========== */
+  .results-card {
+    background: var(--card-light);
+    color: var(--text-on-light);
+    border-radius: var(--radius-lg);
+    padding: 48px 36px;
+    text-align: center;
+  }
+  .results-card .big-score {
+    font-size: clamp(72px, 12vw, 120px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+  .results-card .big-score .total {
+    color: #6b6398;
+    font-size: 0.5em;
+  }
+  .results-card .label-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4a4570;
+    margin: 14px 0 30px;
+  }
+  .results-card .verdict {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    background: var(--purple-deep);
+    color: white;
+    margin-bottom: 30px;
+  }
+
+  .review-list {
+    margin-top: 28px;
+    text-align: left;
+  }
+  .review-item {
+    background: var(--card-dark);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--green);
+  }
+  .review-item.wrong { border-left-color: var(--red); }
+  .review-item .q {
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    font-size: 15px;
+  }
+  .review-item .a {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .review-item .a strong { color: var(--text); }
+
+  /* ========== ICONS ========== */
+  .icon-eyes { display: inline-block; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-dot">◆</div>
+    <span>kuvanbakiyev</span>
+  </div>
+  <div class="meta">IB CS SL · Cheat Sheet Quiz</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- SCREEN 1: HOME / TOPIC SELECT -->
+<!-- =============================================================== -->
+<div class="screen active" id="screen-home">
+
+  <div class="hero">
+    <h1>Test your IB CS knowledge with kuvanbakiyev <span class="icon-eyes">👀</span></h1>
+    <p>Pick one or more topics, then answer multiple-choice questions drawn from the IB CS SL cheat sheets. Wrong answers reveal the definition.</p>
+    <div class="deco" aria-hidden="true">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="60" cy="60" r="14" fill="#7b6cf6" />
+        <rect x="100" y="40" width="50" height="50" rx="10" fill="#7b6cf6" transform="rotate(15 125 65)"/>
+        <path d="M 30 140 Q 90 100 150 150" stroke="#7b6cf6" stroke-width="3" fill="none"/>
+        <path d="M 100 130 a 30 15 0 1 0 60 0" fill="#7b6cf6"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Choose topics</h2>
+    <span class="hint">Select one or more</span>
+  </div>
+
+  <div class="topic-grid" id="topic-grid">
+    <!-- topic cards inserted by JS -->
+  </div>
+
+  <div class="action-bar">
+    <div class="selected-count">
+      <strong id="sel-count">0</strong> topic(s) ·
+      <strong id="q-count">0</strong> questions ready
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <button class="btn btn-ghost" id="btn-select-all">Select all</button>
+      <button class="btn btn-primary" id="btn-start" disabled>Start quiz →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =============================================================== -->
+<!-- SCREEN 2: QUIZ -->
+<!-- =============================================================== -->
+<div class="screen" id="screen-quiz">
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+  </div>
+
+  <div class="quiz-meta">
+    <span class="topic-pill" id="quiz-topic-pill">Topic</span>
+    <span><span id="q-current">1</span> / <span id="q-total">1</span></span>
+  </div>
+
+  <div class="question-card">
+    <div class="qnum" id="q-num">Question 01</div>
+    <h2 id="q-text">Question text...</h2>
+  </div>
+
+  <div class="options" id="options-list"></div>
+
+  <div class="feedback" id="feedback">
+    <div class="label" id="feedback-label">Correct!</div>
+    <div class="definition" id="feedback-def"></div>
+  </div>
+
+  <div class="quiz-controls">
+    <div class="score-pill">Score: <span class="num" id="score-current">0</span> / <span id="score-total">0</span></div>
+    <div style="display:flex; gap:10px;">
+      <button class="btn btn-link" id="btn-quit">Quit</button>
+      <button class="btn btn-dark" id="btn-next" disabled>Next →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- =============================================================== -->
+<!-- SCREEN 3: RESULTS -->
+<!-- =============================================================== -->
+<div class="screen" id="screen-results">
+  <div class="results-card">
+    <div class="verdict" id="verdict">Great job</div>
+    <div class="big-score">
+      <span id="final-score">0</span><span class="total"> / <span id="final-total">0</span></span>
+    </div>
+    <div class="label-text" id="result-label">You got 0% correct</div>
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <button class="btn btn-dark" id="btn-retry">Try again</button>
+      <button class="btn btn-primary" id="btn-home">Choose new topics</button>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <h2>Review</h2>
+    <span class="hint">Mistakes only by default</span>
+  </div>
+  <div class="review-list" id="review-list"></div>
+</div>
+
+
+<script>
+/* ====================================================================
+   QUESTION BANK — built directly from the 5 cheat sheets the user shared
+   ==================================================================== */
+
+const TOPICS = {
+  computer: {
+    title: "Computer Fundamentals",
+    desc: "CPU, memory, binary, logic gates & data representation.",
+    tags: ["CPU", "Memory", "Binary"],
+    style: "",
+    badge: "1"
+  },
+  network: {
+    title: "Network Fundamentals",
+    desc: "Topologies, OSI layers, protocols, security & encryption.",
+    tags: ["OSI", "TCP/UDP", "Security"],
+    style: "purple",
+    badge: "2"
+  },
+  system: {
+    title: "System Fundamentals",
+    desc: "SDLC, testing, change management, backup & migration.",
+    tags: ["SDLC", "Testing", "Backup"],
+    style: "dark",
+    badge: "3"
+  },
+  programming: {
+    title: "Programming",
+    desc: "Data types, control flow, arrays, sorts & pseudocode.",
+    tags: ["Loops", "Arrays", "Sorting"],
+    style: "",
+    badge: "4"
+  },
+  oop: {
+    title: "Object-Oriented Programming",
+    desc: "Classes, encapsulation, inheritance, polymorphism & UML.",
+    tags: ["Classes", "Inheritance", "UML"],
+    style: "dark",
+    badge: "5"
+  }
+};
+
+const QUESTIONS = [
+  /* ============== COMPUTER FUNDAMENTALS ============== */
+  { topic:"computer", q:"What does ALU stand for?",
+    options:["Arithmetic Logic Unit","Address Lookup Unit","Algorithmic Linker Unit","Auxiliary Logical Unit"], a:0,
+    def:"<strong>ALU = Arithmetic Logic Unit.</strong> It performs arithmetic (+, −, *, /) and logic operations (AND, OR, NOT, XOR). Results are stored in the Accumulator register." },
+  { topic:"computer", q:"Which register holds the address of the next instruction to be executed?",
+    options:["IR","MAR","PC","MDR"], a:2,
+    def:"<strong>PC (Program Counter)</strong> holds the address of the next instruction. It is incremented during the FETCH stage of the cycle." },
+  { topic:"computer", q:"What does MAR stand for?",
+    options:["Memory Access Register","Memory Address Register","Main Address Register","Mapped Address Register"], a:1,
+    def:"<strong>MAR = Memory Address Register.</strong> It holds the address used for memory access. The data fetched from that address is placed in the MDR." },
+  { topic:"computer", q:"What does the MDR (Memory Data Register) hold?",
+    options:["The next instruction's address","Data being transferred to/from memory","The result of an ALU operation","The address of the current instruction"], a:1,
+    def:"<strong>MDR (Memory Data Register)</strong> holds data being transferred to or from memory. The MAR holds the address; the MDR holds the data." },
+  { topic:"computer", q:"In which order do the stages of the machine cycle occur?",
+    options:["Decode → Fetch → Execute","Execute → Fetch → Decode","Fetch → Decode → Execute","Fetch → Execute → Decode"], a:2,
+    def:"The machine cycle is <strong>Fetch → Decode → Execute</strong>. Fetch loads the instruction, Decode interprets the opcode, Execute performs the operation." },
+  { topic:"computer", q:"Which statement about RAM is TRUE?",
+    options:["It is non-volatile","It is read-only","Data is lost when power is off","It stores BIOS instructions"], a:2,
+    def:"<strong>RAM is volatile</strong> — its data is lost when power is removed. ROM, in contrast, is non-volatile and read-only and stores boot/BIOS instructions." },
+  { topic:"computer", q:"What does ROM typically contain?",
+    options:["The currently running programs","The user's documents","Boot/BIOS instructions","Cached web pages"], a:2,
+    def:"<strong>ROM</strong> is non-volatile, read-only memory used to store permanent boot instructions, often called the <strong>BIOS</strong>." },
+  { topic:"computer", q:"Which cache level is fastest and smallest?",
+    options:["L1","L2","L3","L4"], a:0,
+    def:"<strong>L1 cache</strong> is the fastest and smallest, sitting closest to the CPU core. Order: L1 → L2 → L3 (slower and larger as you move away)." },
+  { topic:"computer", q:"What does a 'cache miss' mean?",
+    options:["Data was found in cache","Data must be fetched from RAM","The cache is full","The CPU is idle"], a:1,
+    def:"A <strong>cache miss</strong> means the data was NOT found in the cache, so the CPU must fetch it from the slower RAM. A cache hit means it was found." },
+  { topic:"computer", q:"Which secondary storage uses NAND flash technology?",
+    options:["HDD","Optical disc","SSD","Magnetic tape"], a:2,
+    def:"<strong>SSD (Solid State Drive)</strong> uses NAND flash memory. It is faster than HDD (which uses magnetic platters) but typically more expensive per GB." },
+  { topic:"computer", q:"Which type of OS guarantees a response time within a deadline?",
+    options:["Single-user OS","Real-time OS (RTOS)","Distributed OS","Embedded OS"], a:1,
+    def:"A <strong>Real-Time OS (RTOS)</strong> guarantees a response within a strict time limit. It's used in applications like avionics or medical equipment." },
+  { topic:"computer", q:"How many bits is a standard ASCII character?",
+    options:["4 bits","7 bits","16 bits","32 bits"], a:1,
+    def:"<strong>Standard ASCII uses 7 bits</strong>, encoding 128 characters. Extended ASCII uses 8 bits (256 chars). Unicode (UTF-8/16) supports all world scripts." },
+  { topic:"computer", q:"What is the ASCII value of the letter 'A'?",
+    options:["48","65","97","32"], a:1,
+    def:"<strong>'A' = 65</strong> in ASCII (binary 0100 0001, hex 41). Lowercase 'a' = 97. Digit '0' = 48." },
+  { topic:"computer", q:"What is the result of 1 AND 1?",
+    options:["0","1","X","Undefined"], a:1,
+    def:"<strong>1 AND 1 = 1.</strong> AND outputs 1 only when BOTH inputs are 1; otherwise 0." },
+  { topic:"computer", q:"What is the result of 1 XOR 1?",
+    options:["0","1","2","Undefined"], a:0,
+    def:"<strong>1 XOR 1 = 0.</strong> XOR (exclusive OR) outputs 1 only when inputs are DIFFERENT. So 0 XOR 1 = 1 but 1 XOR 1 = 0." },
+  { topic:"computer", q:"Which is a LOSSLESS compression format?",
+    options:["JPEG","MP3","PNG","MP4"], a:2,
+    def:"<strong>PNG</strong> is lossless — all data is recovered exactly. JPEG, MP3, MP4 are lossy: some data is permanently discarded to reduce size." },
+  { topic:"computer", q:"How does Run-Length Encoding compress 'AAAABBBCC'?",
+    options:["ABABABAB","4A3B2C","9 chars","ABBC"], a:1,
+    def:"<strong>RLE</strong> replaces runs of repeated values with count+value. AAAABBBCC → 4A3B2C. It's lossless." },
+  { topic:"computer", q:"How many bits are in a byte?",
+    options:["4","8","16","32"], a:1,
+    def:"<strong>1 byte = 8 bits.</strong> A nibble is 4 bits (half a byte). 1 KB = 1,024 bytes." },
+  { topic:"computer", q:"What is a 'nibble'?",
+    options:["1 bit","4 bits","8 bits","16 bits"], a:1,
+    def:"A <strong>nibble</strong> is 4 bits — exactly half a byte. One hex digit can represent one nibble." },
+  { topic:"computer", q:"What is 'latency' in computing?",
+    options:["Maximum data rate","Actual data transfer rate","Delay before data transfer starts","CPU clock speed"], a:2,
+    def:"<strong>Latency</strong> is the delay before data transfer starts. <em>Bandwidth</em> = max rate; <em>Throughput</em> = actual rate achieved." },
+  { topic:"computer", q:"Convert binary 1101 to decimal.",
+    options:["11","12","13","14"], a:2,
+    def:"<strong>1101₂ = 8+4+0+1 = 13.</strong> Each bit's place value (from right): 1, 2, 4, 8. Add the place values where the bit is 1." },
+  { topic:"computer", q:"The CPU's Control Unit (CU) does NOT directly do which of the following?",
+    options:["Fetch instructions","Decode opcodes","Send control signals","Perform arithmetic"], a:3,
+    def:"The <strong>CU directs operations</strong> (fetch, decode, signal). The <strong>ALU</strong> is responsible for arithmetic and logic operations." },
+
+  /* ============== NETWORK FUNDAMENTALS ============== */
+  { topic:"network", q:"Which network type covers a single building, like an office or school?",
+    options:["WAN","LAN","PAN","MAN"], a:1,
+    def:"A <strong>LAN (Local Area Network)</strong> covers a small area like a single building. WAN spans large geography (e.g. internet); MAN spans a city; PAN is ~10m." },
+  { topic:"network", q:"In a star topology, what happens if the central hub/switch fails?",
+    options:["Only one device fails","Half the network fails","The whole network fails","Nothing happens"], a:2,
+    def:"In a <strong>star topology</strong>, the hub/switch is a single point of failure: if it fails, the whole network goes down. Individual device failures are isolated, however." },
+  { topic:"network", q:"Which device sends data ONLY to the destination device using MAC addresses?",
+    options:["Hub","Switch","Modem","Repeater"], a:1,
+    def:"A <strong>switch</strong> sends data only to the destination device, using MAC addresses (Data Link layer). A hub broadcasts to all ports indiscriminately." },
+  { topic:"network", q:"Which device routes data between different networks using IP addresses?",
+    options:["Switch","Hub","Router","NIC"], a:2,
+    def:"A <strong>router</strong> operates at the Network layer (Layer 3) and routes traffic between different networks based on IP addresses." },
+  { topic:"network", q:"What does a modem do?",
+    options:["Connects two LANs","Modulates and demodulates signals (digital ↔ analogue)","Caches web content","Filters traffic"], a:1,
+    def:"A <strong>modem</strong> modulates digital signals into analogue (and back). It's how digital devices communicate over analogue lines like phone or cable." },
+  { topic:"network", q:"Which OSI layer is responsible for routing and logical (IP) addressing?",
+    options:["Transport","Network","Data Link","Session"], a:1,
+    def:"<strong>Layer 3 — Network</strong> handles routing and logical (IP) addressing. Layer 2 (Data Link) handles MAC addressing; Layer 4 (Transport) handles end-to-end delivery." },
+  { topic:"network", q:"Which protocols operate at the Transport layer (Layer 4)?",
+    options:["HTTP, FTP","TCP, UDP","IP, ICMP","Ethernet, Wi-Fi"], a:1,
+    def:"<strong>TCP and UDP</strong> are Transport layer protocols. TCP is reliable/connection-oriented; UDP is fast/connectionless." },
+  { topic:"network", q:"Which port number is used by HTTPS?",
+    options:["80","21","443","25"], a:2,
+    def:"<strong>HTTPS uses port 443</strong> (HTTP over TLS). HTTP uses port 80; FTP uses 21; SSH uses 22; SMTP uses 25." },
+  { topic:"network", q:"Which port is used by SSH (secure shell)?",
+    options:["20","21","22","23"], a:2,
+    def:"<strong>SSH uses port 22</strong>. It provides secure, encrypted remote login. Port 23 is Telnet (insecure)." },
+  { topic:"network", q:"Which port does DNS typically use?",
+    options:["53","80","110","143"], a:0,
+    def:"<strong>DNS uses port 53.</strong> It translates domain names (like google.com) to IP addresses." },
+  { topic:"network", q:"Which is TRUE of UDP compared to TCP?",
+    options:["Slower but reliable","Faster but no delivery guarantee","Connection-oriented","Always retransmits lost packets"], a:1,
+    def:"<strong>UDP</strong> is faster but provides no guaranteed delivery (connectionless). TCP is connection-oriented, guarantees delivery via ACKs/retransmits, but is slower." },
+  { topic:"network", q:"How many bits does an IPv4 address use?",
+    options:["16","32","64","128"], a:1,
+    def:"<strong>IPv4 = 32 bits</strong> (about 4.3 billion addresses), written as 4 octets like 192.168.1.100. IPv6 is 128 bits." },
+  { topic:"network", q:"Which IP address range is private (RFC 1918) for Class C?",
+    options:["10.0.0.0/8","172.16.0.0/12","192.168.0.0/16","127.0.0.0/8"], a:2,
+    def:"<strong>192.168.0.0/16</strong> is the Class C private range. Other private ranges: 10.0.0.0/8 (A) and 172.16.0.0/12 (B)." },
+  { topic:"network", q:"What does subnet mask 255.255.255.0 correspond to in CIDR notation?",
+    options:["/8","/16","/24","/32"], a:2,
+    def:"<strong>255.255.255.0 = /24</strong> — meaning the first 24 bits identify the network and the last 8 bits identify hosts." },
+  { topic:"network", q:"What is 'phishing'?",
+    options:["Flooding a server with traffic","Fake emails/sites to steal credentials","Intercepting network traffic","Trying every password"], a:1,
+    def:"<strong>Phishing</strong> uses fake emails or websites to trick users into revealing credentials. Brute force tries every password; DoS floods servers; MITM intercepts." },
+  { topic:"network", q:"What does a Denial-of-Service (DoS) attack do?",
+    options:["Steals credentials","Floods a server with requests to crash it","Intercepts encrypted traffic","Modifies database queries"], a:1,
+    def:"A <strong>DoS attack</strong> overwhelms a server with so many requests that it cannot serve legitimate users — effectively crashing it or making it unresponsive." },
+  { topic:"network", q:"In symmetric encryption, how many keys are used?",
+    options:["One shared key","Two separate keys","One per session","No keys"], a:0,
+    def:"<strong>Symmetric encryption uses one shared key</strong> for both encryption and decryption. It is fast but the key must be shared securely. AES is an example." },
+  { topic:"network", q:"In asymmetric (public-key) encryption, the PUBLIC key is used to:",
+    options:["Decrypt data","Encrypt data sent to the owner","Sign the receiver's identity","Authenticate the network"], a:1,
+    def:"The <strong>public key encrypts</strong> (it's shared openly). Only the matching <strong>private key</strong> can decrypt. RSA and TLS use this scheme." },
+  { topic:"network", q:"What is the main purpose of a VPN?",
+    options:["Speed up internet","Create an encrypted tunnel over a public network","Block all traffic","Translate domain names"], a:1,
+    def:"A <strong>VPN (Virtual Private Network)</strong> creates an encrypted tunnel over the public internet, protecting data and hiding your IP from external observers." },
+  { topic:"network", q:"What does DNS do?",
+    options:["Encrypts traffic","Translates domain names to IP addresses","Assigns IP addresses dynamically","Filters spam"], a:1,
+    def:"<strong>DNS (Domain Name System)</strong> translates human-readable domain names (e.g. google.com) into IP addresses (e.g. 142.250.74.46). DHCP assigns IPs dynamically." },
+  { topic:"network", q:"In which network topology does data travel in one direction around a closed loop?",
+    options:["Bus","Star","Ring","Mesh"], a:2,
+    def:"A <strong>ring topology</strong> has data circulating in one direction. A token-passing scheme controls which device may transmit. One break can fail the whole ring." },
+  { topic:"network", q:"Which best describes packet switching?",
+    options:["A single dedicated path is reserved for the whole call","Data is split into packets, each routed independently","Bits are sent in parallel on multiple wires","Connections are circuit-based like phones"], a:1,
+    def:"<strong>Packet switching</strong> splits data into packets that may take different routes through the network. Circuit switching (like old phone networks) reserves an end-to-end path." },
+
+  /* ============== SYSTEM FUNDAMENTALS ============== */
+  { topic:"system", q:"Which is NOT one of the five components of a system?",
+    options:["Hardware","Software","Network","Procedures"], a:2,
+    def:"A system has five components: <strong>Hardware, Software, Data, Users, and Procedures</strong>. 'Network' is not one of the five (it falls under hardware/software)." },
+  { topic:"system", q:"In which installation method does the old system get fully replaced overnight?",
+    options:["Direct changeover","Parallel running","Phased conversion","Pilot"], a:0,
+    def:"<strong>Direct changeover</strong> replaces the old system entirely in one go — high risk, no fallback. Best for small systems or hard deadlines." },
+  { topic:"system", q:"Which installation method runs the OLD and NEW systems simultaneously?",
+    options:["Direct changeover","Parallel running","Phased conversion","Pilot"], a:1,
+    def:"<strong>Parallel running</strong> keeps both old and new systems live, allowing you to compare outputs. It's safe but expensive (you pay for two systems)." },
+  { topic:"system", q:"In a 'pilot' installation method, the new system is:",
+    options:["Replaced everywhere immediately","Run alongside the old one everywhere","Tested in one location/department first","Implemented in stages by feature"], a:2,
+    def:"<strong>Pilot</strong> deploys the new system to ONE location first. If it succeeds, it's rolled out elsewhere. Good for geographically spread organisations." },
+  { topic:"system", q:"Which type of testing is done by END USERS to confirm requirements are met?",
+    options:["Unit testing","Integration testing","User Acceptance Testing (UAT)","Regression testing"], a:2,
+    def:"<strong>UAT (User Acceptance Testing)</strong> is performed by end users to verify the system meets their requirements before final release." },
+  { topic:"system", q:"Which best describes 'unit testing'?",
+    options:["Testing the entire system end-to-end","Testing individual functions/modules in isolation","Testing how modules work together","Testing for past bugs after a change"], a:1,
+    def:"<strong>Unit testing</strong> tests individual functions or modules in isolation, usually by developers. Integration testing tests modules together." },
+  { topic:"system", q:"Beta testing is performed by:",
+    options:["Internal developers only","QA team members only","A selection of external users before final release","Robots"], a:2,
+    def:"<strong>Beta testing</strong> is external — selected users try the product before final release. Alpha testing is internal." },
+  { topic:"system", q:"What kind of test data would 'age = -5' or 'age = abc' be?",
+    options:["Normal","Boundary","Erroneous","Optimal"], a:2,
+    def:"<strong>Erroneous test data</strong> is invalid or wrong-type input — it should be rejected by validation. Boundary data sits at the edges of valid range." },
+  { topic:"system", q:"What is an 'incremental backup'?",
+    options:["All data backed up every time","Only the changes since the LAST backup of any kind","Only the changes since the last FULL backup","A backup stored on a different continent"], a:1,
+    def:"<strong>Incremental backup</strong> only backs up changes since the last backup (any type). It's fastest and uses least space, but restoration requires the chain." },
+  { topic:"system", q:"In the 3-2-1 backup rule, what does the '1' mean?",
+    options:["1 copy of the data","1 cloud provider","1 copy stored off-site","1 person responsible"], a:2,
+    def:"The <strong>3-2-1 rule</strong>: 3 copies of data, on 2 different media, with 1 off-site (or in the cloud) for disaster recovery." },
+  { topic:"system", q:"What is a software 'patch'?",
+    options:["A bundle of multiple updates","A small fix for a specific bug or vulnerability","A driver update","A new major version"], a:1,
+    def:"A <strong>patch</strong> fixes a specific bug or security vulnerability. A <strong>service pack</strong> is a bundle of multiple patches; a version update brings new features." },
+  { topic:"system", q:"Which is a typical advantage of CLOUD-hosted systems vs locally-hosted?",
+    options:["Lower upfront cost and scalability","Full control over hardware","Works without internet","Always free"], a:0,
+    def:"<strong>Cloud</strong> typically means low upfront cost (subscription), easy scalability and access anywhere with internet. Local gives more control but high upfront cost." },
+  { topic:"system", q:"Which is a common cause of data loss?",
+    options:["Hardware failure","Human error","Malware","All of the above"], a:3,
+    def:"All of these — <strong>hardware failure, human error, malware/ransomware</strong>, software bugs, natural disasters and theft are common causes of data loss." },
+  { topic:"system", q:"Which is a sensible step when managing user resistance to a new system?",
+    options:["Hide the change until launch day","Skip training to save costs","Involve users early and provide training","Force adoption with penalties"], a:2,
+    def:"Good change management: <strong>communicate clearly, involve users early, provide training, run pilots, gather feedback</strong>." },
+  { topic:"system", q:"Which is NOT part of data migration?",
+    options:["Audit existing data","Map old fields to new format","Validate data integrity","Delete the old system immediately"], a:3,
+    def:"Data migration steps: <strong>audit → clean → map → transfer → validate → keep backup</strong>. You should never delete the old system before validation succeeds." },
+  { topic:"system", q:"Regression testing is performed to:",
+    options:["Test new features for the first time","Stress test the system at peak load","Re-test existing features after a change to ensure nothing broke","Test the user interface"], a:2,
+    def:"<strong>Regression testing</strong> re-tests existing features after a change to ensure no previously-working behavior was broken." },
+
+  /* ============== PROGRAMMING ============== */
+  { topic:"programming", q:"Which data type holds only true or false?",
+    options:["Integer","Boolean","Char","String"], a:1,
+    def:"<strong>Boolean</strong> stores only TRUE or FALSE. Used in conditions and flags." },
+  { topic:"programming", q:"What is the difference between a variable and a constant?",
+    options:["Variables can change; constants cannot","Constants are faster","Variables hold integers only","Constants take more memory"], a:0,
+    def:"A <strong>variable's value can change</strong> during execution. A <strong>constant's value cannot change</strong> after assignment (convention: written in CAPS)." },
+  { topic:"programming", q:"In IB pseudocode, which is the correct for-loop syntax?",
+    options:["for(int i=0;i<10;i++)","loop I from 1 to 10 ... end loop","repeat 10 times","loop until done"], a:1,
+    def:"<strong>IB pseudocode for-loop:</strong> <code>loop I from 1 to 10 ... end loop</code>. Use it when the number of iterations is known in advance." },
+  { topic:"programming", q:"Which flowchart symbol represents a decision (Yes/No branch)?",
+    options:["Oval","Rectangle","Diamond","Parallelogram"], a:2,
+    def:"A <strong>diamond</strong> represents a decision (yes/no branch). Oval = start/end (terminator); rectangle = process; parallelogram = input/output." },
+  { topic:"programming", q:"In IB pseudocode, what is the index of the FIRST element in an array A?",
+    options:["A[1]","A[0]","A[-1]","A[N]"], a:1,
+    def:"IB pseudocode arrays are <strong>0-indexed</strong>: the first element is A[0]. The last element of an array of N items is A[N-1]." },
+  { topic:"programming", q:"What is the time complexity of a linear search?",
+    options:["O(1)","O(log n)","O(n)","O(n²)"], a:2,
+    def:"<strong>Linear search is O(n)</strong> — in the worst case it must check every element. Best case (target at index 0) is O(1)." },
+  { topic:"programming", q:"What is the time complexity of binary search?",
+    options:["O(1)","O(log n)","O(n)","O(n²)"], a:1,
+    def:"<strong>Binary search is O(log n)</strong> in average and worst case. It requires the array to be SORTED — it halves the search space each step." },
+  { topic:"programming", q:"Binary search requires the input array to be:",
+    options:["Empty","Sorted","Of integers","Reversed"], a:1,
+    def:"<strong>Binary search requires a sorted array</strong>. It compares to the middle element and halves the search range each iteration." },
+  { topic:"programming", q:"Selection sort always has what time complexity?",
+    options:["O(n) best","O(log n)","O(n²)","O(2^n)"], a:2,
+    def:"<strong>Selection sort is always O(n²)</strong> — it always compares all pairs to find the minimum, with no early exit possible." },
+  { topic:"programming", q:"Which sort is BEST for a nearly-sorted array (best case O(n))?",
+    options:["Bubble sort","Selection sort","Insertion sort","Quick sort"], a:2,
+    def:"<strong>Insertion sort</strong> excels on nearly-sorted data, achieving O(n) best case. Selection sort is always O(n²)." },
+  { topic:"programming", q:"What does 'stable' mean for a sorting algorithm?",
+    options:["It doesn't crash","Equal elements keep their original relative order","It runs in O(n) time","It uses no memory"], a:1,
+    def:"A <strong>stable sort preserves the original relative order of equal elements</strong>. Bubble and insertion sort are stable; selection sort is not." },
+  { topic:"programming", q:"What's the difference between a procedure and a function?",
+    options:["Procedures take parameters; functions don't","Functions return a value; procedures don't","Functions are slower","No difference"], a:1,
+    def:"A <strong>function returns a value</strong>; a <strong>procedure does not</strong> (it just performs an action). Both can take parameters." },
+  { topic:"programming", q:"In <code>function ADD(A,B)</code>, A and B are called:",
+    options:["Arguments","Parameters","Variables","Constants"], a:1,
+    def:"In a function definition, A and B are <strong>parameters</strong>. The actual values passed when calling (e.g. ADD(3,4)) are <strong>arguments</strong>." },
+  { topic:"programming", q:"Which IB pseudocode operator gives the remainder of integer division?",
+    options:["div","mod","%","rem"], a:1,
+    def:"In IB pseudocode, <strong>mod</strong> returns the remainder; <strong>div</strong> gives integer division. Example: 17 mod 5 = 2; 17 div 5 = 3." },
+  { topic:"programming", q:"What is 'abstraction' in programming?",
+    options:["Breaking a problem into smaller pieces","Hiding complexity, exposing only what's needed","Deleting code","Re-using code"], a:1,
+    def:"<strong>Abstraction</strong> hides implementation details and exposes only the necessary interface. <strong>Decomposition</strong> is breaking a problem into smaller sub-problems." },
+  { topic:"programming", q:"What does decomposition mean?",
+    options:["Removing code","Breaking a large problem into smaller sub-problems","Encrypting code","Compiling code"], a:1,
+    def:"<strong>Decomposition</strong> means breaking a large problem into smaller, more manageable sub-problems. Example: a Game = setup + play + scoring + endGame." },
+  { topic:"programming", q:"What is a LOCAL variable?",
+    options:["A global setting","A variable accessible everywhere in the program","A variable that only exists inside its function/block","A constant"], a:2,
+    def:"A <strong>local variable</strong> exists only within its function or block. A <strong>global variable</strong> is accessible throughout the program." },
+  { topic:"programming", q:"Which loop should you use when the number of iterations is known in advance?",
+    options:["while loop","for loop","do-while loop","Repeat-until"], a:1,
+    def:"Use a <strong>for loop</strong> when you know the number of iterations. Use <strong>while</strong> when you repeat until a condition is met (count unknown)." },
+  { topic:"programming", q:"Which sort algorithm always performs exactly n-1 swaps?",
+    options:["Bubble sort","Insertion sort","Selection sort","Merge sort"], a:2,
+    def:"<strong>Selection sort</strong> performs exactly n-1 swaps — one per pass, after finding the minimum of the unsorted portion." },
+  { topic:"programming", q:"In IB pseudocode, the string operation <code>str.substring(1,3)</code> on \"HELLO\" returns:",
+    options:["HE","EL","ELL","HEL"], a:1,
+    def:"<strong>substring(1,3)</strong> typically returns characters from index 1 up to (but not including) index 3 → 'EL'. Indexing convention may vary, but this matches Java." },
+  { topic:"programming", q:"What is the BEST-case time complexity of insertion sort?",
+    options:["O(n)","O(log n)","O(n²)","O(1)"], a:0,
+    def:"<strong>Insertion sort best case is O(n)</strong> — when the array is already sorted, the inner loop never shifts. Worst case is O(n²)." },
+
+  /* ============== OOP ============== */
+  { topic:"oop", q:"In OOP, what is a CLASS?",
+    options:["A specific instance","A blueprint/template defining attributes and methods","A collection of unrelated functions","A single variable"], a:1,
+    def:"A <strong>class</strong> is a blueprint that defines attributes (data) and methods (behaviour). An <strong>object</strong> is a specific instance created from a class." },
+  { topic:"oop", q:"What is an OBJECT?",
+    options:["A blueprint","A function","An instance of a class","A type of loop"], a:2,
+    def:"An <strong>object</strong> is an instance of a class. If <em>Car</em> is the class, <em>myCar = new Car(\"Toyota\", 2022)</em> is an object." },
+  { topic:"oop", q:"What does a constructor do?",
+    options:["Destroys an object","Initialises an object when it is created","Returns the class size","Inherits from a parent"], a:1,
+    def:"A <strong>constructor</strong> initialises an object on creation. It has the same name as the class, has no return type, and can be overloaded." },
+  { topic:"oop", q:"What is encapsulation?",
+    options:["Inheriting from a parent class","Bundling data and methods together while restricting direct access to internal data","Allowing objects to take many forms","Splitting code into modules"], a:1,
+    def:"<strong>Encapsulation</strong> bundles data with the methods that act on it and hides internal state — typically by making attributes private and exposing getters/setters." },
+  { topic:"oop", q:"Which access modifier means accessible ONLY within the same class?",
+    options:["public","private","protected","static"], a:1,
+    def:"<strong>private</strong> restricts access to the same class only — used to hide attributes (data hiding). <strong>protected</strong> allows subclasses; <strong>public</strong> allows anywhere." },
+  { topic:"oop", q:"What does the 'protected' access modifier allow?",
+    options:["Same class only","Same class and its subclasses","Anywhere","Same package only"], a:1,
+    def:"<strong>protected</strong> means accessible within the same class AND its subclasses. Useful in inheritance scenarios." },
+  { topic:"oop", q:"What is a 'getter' method?",
+    options:["A method that creates an object","A method that reads (returns) a private attribute","A constructor","An overloaded operator"], a:1,
+    def:"A <strong>getter</strong> returns the value of a private attribute. A <strong>setter</strong> writes/updates the attribute (often with validation)." },
+  { topic:"oop", q:"In Java, which keyword establishes inheritance?",
+    options:["inherits","implements","extends","super"], a:2,
+    def:"<strong>extends</strong> is Java's keyword for inheritance: <code>class Dog extends Animal</code>. <em>implements</em> is for interfaces; <em>super</em> calls the parent constructor." },
+  { topic:"oop", q:"What does method 'overriding' mean?",
+    options:["Defining multiple methods with the same name but different parameters","A subclass redefines a method from its parent","Calling a method from inside itself","Marking a method as final"], a:1,
+    def:"<strong>Overriding</strong> is when a subclass redefines a method from its parent. <strong>Overloading</strong> is multiple methods with the same name but different parameter lists." },
+  { topic:"oop", q:"Which relationship does 'Dog IS-A Animal' represent?",
+    options:["Composition","Aggregation","Inheritance","Association"], a:2,
+    def:"<strong>IS-A</strong> represents <strong>inheritance</strong> — a Dog is a kind of Animal. <strong>HAS-A</strong> represents composition (e.g., a Car HAS-A Engine)." },
+  { topic:"oop", q:"What is polymorphism?",
+    options:["Hiding internal data","Bundling data and behaviour together","Same method name behaving differently depending on the calling object","Inheriting multiple parents"], a:2,
+    def:"<strong>Polymorphism</strong> means \"one interface, many forms\" — the same method call (e.g., <code>a.sound()</code>) produces different behaviour depending on the actual object type." },
+  { topic:"oop", q:"In a UML class diagram, what does '+' before a member mean?",
+    options:["public","private","protected","static"], a:0,
+    def:"In UML: <strong>+ = public</strong>, <strong>− = private</strong>, <strong># = protected</strong>. So <code>+ getSpeed()</code> is a public method." },
+  { topic:"oop", q:"In a UML class diagram, what does '−' before a member mean?",
+    options:["public","private","protected","abstract"], a:1,
+    def:"<strong>− = private</strong> in UML. The class diagram lists attributes (top compartment) and methods (bottom), each marked with visibility." },
+  { topic:"oop", q:"Which is TRUE of constructors?",
+    options:["They have a return type","They share the class name and have no return type","They are always private","They cannot have parameters"], a:1,
+    def:"A <strong>constructor</strong> has the same name as the class and <strong>no return type</strong>. It can be overloaded (multiple versions with different parameters)." },
+  { topic:"oop", q:"What is an abstract class?",
+    options:["A class that cannot be instantiated; only used as a parent","A class with all-private methods","A class with no methods","A class that cannot be inherited"], a:0,
+    def:"An <strong>abstract class</strong> cannot be instantiated directly. It serves as a base for subclasses, often defining methods they must implement." },
+  { topic:"oop", q:"What does the 'static' keyword mean for a class member?",
+    options:["Cannot be modified","Shared across all instances of the class","Hidden from subclasses","Runs only once at startup"], a:1,
+    def:"<strong>static</strong> means the member belongs to the class itself, shared across all instances — not unique to each object." },
+  { topic:"oop", q:"What does 'null' represent?",
+    options:["The number zero","An empty string","A reference to no object (empty reference)","A boolean false"], a:2,
+    def:"<strong>null</strong> is a reference that points to no object. It is distinct from 0, false, or an empty string." },
+  { topic:"oop", q:"Which is an advantage of OOP over procedural programming?",
+    options:["Always uses less memory","Models real-world entities and improves maintainability","No learning curve","Cannot be debugged"], a:1,
+    def:"OOP advantages: <strong>modularity, reusability, easier maintenance, encapsulation</strong>, and natural modelling of real-world entities. Procedural can be simpler for tiny programs." },
+  { topic:"oop", q:"What does <code>this</code> refer to inside a class method?",
+    options:["The parent class","The current object instance","A static variable","The constructor"], a:1,
+    def:"<strong>this</strong> refers to the current object instance — used to disambiguate (e.g., <code>this.name = name</code>)." },
+  { topic:"oop", q:"What is method overloading?",
+    options:["Subclass redefines a parent method","Same method name with different parameter lists","A method that calls itself","A method marked as static"], a:1,
+    def:"<strong>Overloading</strong>: multiple methods with the SAME name but DIFFERENT parameter lists (different types or count). It is resolved at compile time." },
+  { topic:"oop", q:"What is an interface?",
+    options:["A graphical user interface","A contract specifying methods a class must implement","A type of variable","A network protocol"], a:1,
+    def:"An <strong>interface</strong> is a contract — a set of method signatures a class must implement. It allows polymorphism without inheritance." },
+  { topic:"oop", q:"Which is an advantage of using object libraries?",
+    options:["Pre-written, tested code that saves development time","They eliminate all bugs","They make programs run faster than custom code","They prevent updates"], a:0,
+    def:"<strong>Object libraries</strong> provide pre-written, tested code maintained by experts — saving time, ensuring consistency, and including security updates." }
+];
+
+/* ====================================================================
+   STATE
+   ==================================================================== */
+const state = {
+  selected: new Set(),
+  quiz: [],
+  index: 0,
+  score: 0,
+  answers: []
+};
+
+/* ====================================================================
+   RENDER TOPIC CARDS
+   ==================================================================== */
+function renderTopics() {
+  const grid = document.getElementById("topic-grid");
+  grid.innerHTML = "";
+  Object.entries(TOPICS).forEach(([key, t]) => {
+    const count = QUESTIONS.filter(q => q.topic === key).length;
+    const card = document.createElement("div");
+    card.className = "topic-card " + (t.style || "");
+    card.dataset.key = key;
+    card.innerHTML = `
+      <div class="check">✓</div>
+      <h3>${t.title}<span class="badge">#${t.badge}</span></h3>
+      <p>${t.desc}</p>
+      <div class="tags">
+        ${t.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+        <span class="tag">${count} Qs</span>
+      </div>
+    `;
+    card.addEventListener("click", () => toggleTopic(key, card));
+    grid.appendChild(card);
+  });
+}
+
+function toggleTopic(key, card) {
+  if (state.selected.has(key)) {
+    state.selected.delete(key);
+    card.classList.remove("selected");
+  } else {
+    state.selected.add(key);
+    card.classList.add("selected");
+  }
+  updateSelectionUI();
+}
+
+function updateSelectionUI() {
+  const count = state.selected.size;
+  const qcount = QUESTIONS.filter(q => state.selected.has(q.topic)).length;
+  document.getElementById("sel-count").textContent = count;
+  document.getElementById("q-count").textContent = qcount;
+  document.getElementById("btn-start").disabled = count === 0;
+}
+
+/* ====================================================================
+   START / NAVIGATION
+   ==================================================================== */
+document.getElementById("btn-select-all").addEventListener("click", () => {
+  const allSelected = state.selected.size === Object.keys(TOPICS).length;
+  state.selected.clear();
+  document.querySelectorAll(".topic-card").forEach(card => {
+    card.classList.remove("selected");
+    if (!allSelected) {
+      state.selected.add(card.dataset.key);
+      card.classList.add("selected");
+    }
+  });
+  updateSelectionUI();
+});
+
+document.getElementById("btn-start").addEventListener("click", startQuiz);
+
+function startQuiz() {
+  const pool = QUESTIONS.filter(q => state.selected.has(q.topic));
+  state.quiz = shuffle(pool.slice());
+  state.index = 0;
+  state.score = 0;
+  state.answers = [];
+  document.getElementById("q-total").textContent = state.quiz.length;
+  document.getElementById("score-total").textContent = state.quiz.length;
+  showScreen("screen-quiz");
+  renderQuestion();
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ====================================================================
+   RENDER QUESTION
+   ==================================================================== */
+function renderQuestion() {
+  const q = state.quiz[state.index];
+  const total = state.quiz.length;
+  const cur = state.index + 1;
+  document.getElementById("q-current").textContent = cur;
+  document.getElementById("q-num").textContent = `Question ${String(cur).padStart(2, "0")}`;
+  document.getElementById("q-text").innerHTML = q.q;
+  document.getElementById("quiz-topic-pill").textContent = TOPICS[q.topic].title;
+  document.getElementById("score-current").textContent = state.score;
+  document.getElementById("progress-fill").style.width = `${((cur - 1) / total) * 100}%`;
+
+  // Shuffle option order while keeping track of correct index
+  const opts = q.options.map((text, idx) => ({ text, isCorrect: idx === q.a }));
+  shuffle(opts);
+
+  const list = document.getElementById("options-list");
+  list.innerHTML = "";
+  opts.forEach((o, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerHTML = `
+      <span class="letter">${String.fromCharCode(65 + i)}</span>
+      <span>${o.text}</span>
+    `;
+    btn.addEventListener("click", () => answerSelected(btn, o.isCorrect, list, q));
+    list.appendChild(btn);
+  });
+
+  // reset feedback / next
+  document.getElementById("feedback").classList.remove("show", "right", "wrong");
+  document.getElementById("btn-next").disabled = true;
+  document.getElementById("btn-next").textContent =
+    state.index === state.quiz.length - 1 ? "See results →" : "Next →";
+}
+
+function answerSelected(btn, isCorrect, listEl, q) {
+  // disable all options, mark correct + selected
+  Array.from(listEl.children).forEach(opt => {
+    opt.disabled = true;
+    const optText = opt.querySelector("span:nth-child(2)").textContent.trim();
+    const correctText = q.options[q.a].trim();
+    if (optText === correctText) {
+      opt.classList.add("correct");
+      const icon = document.createElement("span");
+      icon.className = "icon";
+      icon.textContent = "✓";
+      opt.appendChild(icon);
+    }
+  });
+
+  const fb = document.getElementById("feedback");
+  const lbl = document.getElementById("feedback-label");
+  const def = document.getElementById("feedback-def");
+
+  if (isCorrect) {
+    btn.classList.add("correct");
+    state.score++;
+    fb.classList.add("show", "right");
+    lbl.textContent = "Correct ✓";
+    def.innerHTML = q.def;
+  } else {
+    btn.classList.add("wrong");
+    const icon = document.createElement("span");
+    icon.className = "icon";
+    icon.textContent = "✗";
+    btn.appendChild(icon);
+    fb.classList.add("show", "wrong");
+    lbl.textContent = "Not quite — here's the definition";
+    def.innerHTML = q.def;
+  }
+
+  state.answers.push({
+    question: q.q,
+    correct: q.options[q.a],
+    wasCorrect: isCorrect,
+    def: q.def,
+    topic: TOPICS[q.topic].title
+  });
+
+  document.getElementById("score-current").textContent = state.score;
+  document.getElementById("btn-next").disabled = false;
+}
+
+/* ====================================================================
+   NEXT / RESULTS
+   ==================================================================== */
+document.getElementById("btn-next").addEventListener("click", () => {
+  if (state.index < state.quiz.length - 1) {
+    state.index++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+});
+
+document.getElementById("btn-quit").addEventListener("click", () => {
+  if (confirm("Quit the current quiz? Progress will be lost.")) {
+    showScreen("screen-home");
+  }
+});
+
+function showResults() {
+  document.getElementById("progress-fill").style.width = "100%";
+  document.getElementById("final-score").textContent = state.score;
+  document.getElementById("final-total").textContent = state.quiz.length;
+
+  const pct = Math.round((state.score / state.quiz.length) * 100);
+  document.getElementById("result-label").textContent = `You got ${pct}% correct`;
+
+  const verdict = document.getElementById("verdict");
+  if (pct === 100)        verdict.textContent = "Perfect!";
+  else if (pct >= 80)     verdict.textContent = "Great job";
+  else if (pct >= 60)     verdict.textContent = "Solid effort";
+  else if (pct >= 40)     verdict.textContent = "Keep practising";
+  else                    verdict.textContent = "Time to revise";
+
+  // Build review list
+  const review = document.getElementById("review-list");
+  review.innerHTML = "";
+  const wrong = state.answers.filter(a => !a.wasCorrect);
+  if (wrong.length === 0) {
+    review.innerHTML = `<div class="review-item"><div class="q">Nothing to review — perfect score!</div></div>`;
+  } else {
+    wrong.forEach(a => {
+      const div = document.createElement("div");
+      div.className = "review-item wrong";
+      div.innerHTML = `
+        <div class="q">${a.question}</div>
+        <div class="a"><strong>Correct answer:</strong> ${a.correct}</div>
+        <div class="a" style="margin-top:6px">${a.def}</div>
+      `;
+      review.appendChild(div);
+    });
+  }
+
+  showScreen("screen-results");
+}
+
+document.getElementById("btn-retry").addEventListener("click", () => {
+  startQuiz();
+});
+
+document.getElementById("btn-home").addEventListener("click", () => {
+  showScreen("screen-home");
+});
+
+/* ====================================================================
+   INIT
+   ==================================================================== */
+renderTopics();
+updateSelectionUI();
+</script>
+</body>
+</html>
